@@ -1,0 +1,192 @@
+openapi: 3.0.3
+info:
+  title: TODO Folders API
+  version: "1.0.0"
+  description: >
+    Versioned REST API for folder-scoped task management (story folders-001).
+    Folder deletion reassigns the folder's tasks to the default "General" folder
+    in a single transactional operation. General cannot be deleted.
+servers:
+  - url: /api/v1
+paths:
+  /folders:
+    get:
+      summary: List all folders with live task counts
+      operationId: listFolders
+      responses:
+        "200":
+          description: Folders ordered with General first, then by createdAt
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Folder" }
+    post:
+      summary: Create a folder
+      operationId: createFolder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CreateFolderRequest" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Folder" }
+        "400": { $ref: "#/components/responses/ValidationError" }
+        "409": { $ref: "#/components/responses/ConflictError" }
+  /folders/{id}:
+    delete:
+      summary: Delete a folder; its tasks are reassigned to General
+      operationId: deleteFolder
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        "200":
+          description: Deleted; reports how many tasks were reassigned
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/DeleteFolderResult" }
+        "404": { $ref: "#/components/responses/NotFoundError" }
+        "409":
+          description: General (default) folder cannot be deleted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorBody" }
+  /tasks:
+    get:
+      summary: List tasks; optionally scoped to a folder
+      operationId: listTasks
+      parameters:
+        - name: folderId
+          in: query
+          required: false
+          description: When omitted, returns tasks across all folders (All-folders view)
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: Tasks (newest first), each labeled with its folder
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Task" }
+        "404": { $ref: "#/components/responses/NotFoundError" }
+    post:
+      summary: Create a task in a folder
+      operationId: createTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CreateTaskRequest" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Task" }
+        "400": { $ref: "#/components/responses/ValidationError" }
+        "404": { $ref: "#/components/responses/NotFoundError" }
+  /tasks/{id}:
+    patch:
+      summary: Update a task (toggle done and/or rename)
+      operationId: updateTask
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/UpdateTaskRequest" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Task" }
+        "400": { $ref: "#/components/responses/ValidationError" }
+        "404": { $ref: "#/components/responses/NotFoundError" }
+    delete:
+      summary: Delete a task
+      operationId: deleteTask
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
+      responses:
+        "204": { description: Deleted }
+        "404": { $ref: "#/components/responses/NotFoundError" }
+components:
+  schemas:
+    Folder:
+      type: object
+      required: [id, name, isDefault, createdAt, taskCount]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string, minLength: 1, maxLength: 50 }
+        isDefault: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        taskCount: { type: integer, minimum: 0 }
+    Task:
+      type: object
+      required: [id, folderId, folderName, title, done, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        folderId: { type: string, format: uuid }
+        folderName: { type: string }
+        title: { type: string, minLength: 1, maxLength: 500 }
+        done: { type: boolean }
+        createdAt: { type: string, format: date-time }
+    CreateFolderRequest:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 50 }
+    CreateTaskRequest:
+      type: object
+      required: [folderId, title]
+      properties:
+        folderId: { type: string, format: uuid }
+        title: { type: string, minLength: 1, maxLength: 500 }
+    UpdateTaskRequest:
+      type: object
+      properties:
+        done: { type: boolean }
+        title: { type: string, minLength: 1, maxLength: 500 }
+    DeleteFolderResult:
+      type: object
+      required: [deletedFolderId, reassignedCount, generalFolderId]
+      properties:
+        deletedFolderId: { type: string, format: uuid }
+        reassignedCount: { type: integer, minimum: 0 }
+        generalFolderId: { type: string, format: uuid }
+    ErrorBody:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              enum: [VALIDATION, DUPLICATE_NAME, NOT_FOUND, CANNOT_DELETE_DEFAULT]
+            message: { type: string }
+            field: { type: string, nullable: true }
+  responses:
+    ValidationError:
+      description: Request failed validation
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/ErrorBody" }
+    ConflictError:
+      description: Duplicate folder name (case-insensitive)
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/ErrorBody" }
+    NotFoundError:
+      description: Resource not found
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/ErrorBody" }

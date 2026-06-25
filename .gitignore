@@ -1,0 +1,55 @@
+# Template project .gitignore
+# This file is copied into every project scaffolded by maple init.
+
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build output
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+
+# Java / Maven build output
+target/
+*.class
+
+# Test output
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Docker
+*.log
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# Editor artefacts
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Claude Code local settings and runtime state
+.claude/settings.local.json
+.claude/logs/
+.claude/pending-sync.jsonl
+.claude/state/
+
+# MAPLE CLI state (if maple is installed inside the project)
+.maple.json
