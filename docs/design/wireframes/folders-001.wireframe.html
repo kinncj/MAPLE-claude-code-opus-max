@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!-- Wireframe (low-fidelity) for story folders-001 — TODO SPA Folders feature.
+     Reviewable artifact; not production code. Mirrors folders-001.wireframe.md. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wireframe — TODO SPA Folders (folders-001)</title>
+  <style>
+    :root { --ink:#1f2933; --line:#9aa5b1; --muted:#7b8794; --accent:#2563eb;
+            --danger:#c0392b; --paper:#fafafa; --panel:#fff; --hl:#e8f0fe; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink);
+           font-family: "Comic Sans MS", "Segoe Print", ui-rounded, system-ui, sans-serif; }
+    .frame { max-width: 920px; margin: 28px auto; background:var(--panel);
+             border:2px solid var(--ink); border-radius:14px; padding:18px; }
+    .header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+    .header h1 { font-size:22px; margin:0; }
+    .toggle { border:2px solid var(--ink); border-radius:8px; padding:4px 10px; background:#fffbe6; }
+    .grid { display:grid; grid-template-columns: 230px 1fr; gap:16px; }
+    .panel { border:2px solid var(--line); border-radius:12px; padding:14px; min-height:420px; }
+    .sidebar { display:flex; flex-direction:column; }
+    .sidebar h2 { font-size:15px; margin:0 0 12px; }
+    .folder { padding:6px 4px; color:var(--ink); }
+    .folder.active { color:var(--accent); font-weight:bold; }
+    .folder .badge { color:var(--muted); }
+    .grow { flex:1 1 auto; }
+    .btn { border:2px solid var(--ink); border-radius:8px; padding:8px; text-align:center;
+           background:#f4f5f7; margin-top:10px; }
+    .right { display:flex; flex-direction:column; }
+    .addrow { display:flex; gap:8px; align-items:center; }
+    .input { flex:1 1 auto; border:2px solid var(--line); border-radius:10px; padding:10px 12px;
+             color:var(--muted); font-style:italic; }
+    .plus { border:2px solid var(--ink); border-radius:10px; padding:10px 14px; background:#f4f5f7; }
+    .filters { display:flex; gap:10px; align-items:center; margin:14px 0 10px; }
+    .pill { border:1.5px solid var(--ink); border-radius:999px; padding:3px 12px; }
+    .pill.sel { background:var(--hl); border-color:var(--accent); color:var(--accent); }
+    .del-folder { margin-left:auto; border:1.5px solid var(--ink); border-radius:8px; padding:3px 10px; }
+    .tasks { border:2px solid var(--line); border-radius:12px; padding:12px; flex:1 1 auto; }
+    .task { display:flex; align-items:center; gap:10px; padding:7px 4px; }
+    .task .title { flex:1 1 auto; }
+    .task.done .title { text-decoration: line-through; color:var(--muted); }
+    .del { border:1.5px solid var(--ink); border-radius:6px; padding:1px 8px; font-size:12px; }
+    .confirm { margin-top:28px; color:var(--danger); display:flex; align-items:center;
+               gap:10px; flex-wrap:wrap; }
+    .confirm .act { border:1.5px solid var(--danger); border-radius:6px; padding:2px 10px; }
+    .note { color:var(--muted); font-size:12px; margin-top:14px; }
+  </style>
+</head>
+<body>
+  <div class="frame" role="img" aria-label="Low-fidelity wireframe of the TODO SPA folders feature">
+    <div class="header">
+      <h1>Tasks</h1>
+      <div class="toggle">☀ / 🌙</div>
+    </div>
+    <div class="grid">
+      <!-- LEFT: folders sidebar -->
+      <div class="panel sidebar">
+        <h2>Folders</h2>
+        <div class="folder active">★ General <span class="badge">(3)</span></div>
+        <div class="folder">Work <span class="badge">(1)</span></div>
+        <div class="folder">Groceries <span class="badge">(2)</span></div>
+        <div class="grow"></div>
+        <div class="btn">+ New folder</div>
+        <div class="btn">▼ All folders</div>
+      </div>
+      <!-- RIGHT: tasks panel -->
+      <div class="panel right">
+        <div class="addrow">
+          <div class="input">Add new task in General …</div>
+          <div class="plus">[+]</div>
+        </div>
+        <div class="filters">
+          <span class="pill sel">All</span>
+          <span class="pill">Todo</span>
+          <span class="pill">Done</span>
+          <span class="del-folder">Delete folder</span>
+        </div>
+        <div class="tasks">
+          <div class="task"><span>[ ]</span><span class="title">Buy milk</span><span class="del">Del</span></div>
+          <div class="task done"><span>[x]</span><span class="title">Walk dog</span><span class="del">Del</span></div>
+          <div class="task"><span>[ ]</span><span class="title">Write report</span><span class="del">Del</span></div>
+          <div class="confirm">
+            <span>Delete folder "Work"? Tasks move to General.</span>
+            <span class="act">Confirm</span><span class="act">Cancel</span>
+          </div>
+        </div>
+        <div class="note">Inline confirm is scoped to this panel. [Cancel] is the default safe action; Esc cancels.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

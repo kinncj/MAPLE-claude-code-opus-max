@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: todo-api
+  datasource:
+    url: jdbc:h2:mem:todo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+    include-message: never
+
+# Swagger UI at /swagger-ui.html, OpenAPI spec at /v3/api-docs
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+  api-docs:
+    path: /v3/api-docs
+
+# Health endpoint backs the container readiness check
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+# Feature flags for the in-memory demo. Override per environment.
+todo:
+  seed: true            # load the sample dataset (General/Work/Groceries) on boot
+  test-support: true    # expose POST /api/v1/test/reset for deterministic e2e
+
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %-5level [%logger{0}] %msg%n"
+  level:
+    todo.audit: INFO

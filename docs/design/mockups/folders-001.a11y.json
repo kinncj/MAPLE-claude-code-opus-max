@@ -1,0 +1,22 @@
+{
+  "tool": "axe-core",
+  "standard": "WCAG 2.2 AA",
+  "generatedFor": "folders-001",
+  "states": [
+    {
+      "state": "light-default",
+      "violations": []
+    },
+    {
+      "state": "light-delete-confirm",
+      "violations": []
+    },
+    {
+      "state": "dark-default",
+      "violations": []
+    }
+  ],
+  "totalViolations": 0,
+  "blocking": 0,
+  "passed": true
+}

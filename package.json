@@ -1,0 +1,12 @@
+{
+  "name": "todo-e2e",
+  "private": true,
+  "version": "1.0.0",
+  "description": "End-to-end (Playwright) test tooling for the TODO SPA (folders-001)",
+  "scripts": {
+    "test:e2e": "playwright test --config=tests/playwright.config.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.49.0"
+  }
+}
