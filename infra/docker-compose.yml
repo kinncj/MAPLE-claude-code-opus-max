@@ -1,0 +1,20 @@
+# Single self-contained service: Spring Boot serving the SPA + REST API on :8080, H2 in-memory.
+# Used by `make run` and `make test-e2e`.
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+    image: taskmaple-todo:latest
+    container_name: taskmaple-todo
+    ports:
+      - "8080:8080"
+    environment:
+      # Defaults already enable these in application.yml; set explicitly for clarity.
+      SPRING_APPLICATION_JSON: '{"todo":{"seed":true,"test-support":true}}'
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 12
+      start_period: 40s

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://design-tokens.org/palette",
+  "name": "Taskmaple",
+  "status": "approved",
+  "description": "Calm, high-contrast palette for the TODO SPA. Blue primary, red destructive, green done-state. Light and dark variants both meet WCAG 2.2 AA.",
+  "brand": {
+    "primary":   { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a" },
+    "danger":    { "50": "#fef2f2", "100": "#fee2e2", "400": "#f87171", "500": "#ef4444", "600": "#dc2626", "700": "#b91c1c" },
+    "success":   { "50": "#f0fdf4", "400": "#4ade80", "500": "#22c55e", "600": "#16a34a", "700": "#15803d" },
+    "neutral":   { "50": "#f8fafc", "100": "#f1f5f9", "200": "#e2e8f0", "300": "#cbd5e1", "400": "#94a3b8", "500": "#64748b", "600": "#475569", "700": "#334155", "800": "#1e293b", "900": "#0f172a", "950": "#020617" }
+  },
+  "semantic": {
+    "light": {
+      "bg":            "#f1f5f9",
+      "surface":       "#ffffff",
+      "surface-alt":   "#f8fafc",
+      "border":        "#e2e8f0",
+      "text":          "#0f172a",
+      "text-muted":    "#475569",
+      "accent":        "#2563eb",
+      "accent-hover":  "#1d4ed8",
+      "accent-soft":   "#eff6ff",
+      "danger":        "#dc2626",
+      "danger-soft":   "#fef2f2",
+      "success":       "#16a34a",
+      "star":          "#f59e0b",
+      "focus-ring":    "#2563eb"
+    },
+    "dark": {
+      "bg":            "#0f172a",
+      "surface":       "#1e293b",
+      "surface-alt":   "#172033",
+      "border":        "#334155",
+      "text":          "#f1f5f9",
+      "text-muted":    "#94a3b8",
+      "accent":        "#60a5fa",
+      "accent-hover":  "#93c5fd",
+      "accent-soft":   "#1e3a5f",
+      "danger":        "#f87171",
+      "danger-soft":   "#3b1f22",
+      "success":       "#4ade80",
+      "star":          "#fbbf24",
+      "focus-ring":    "#60a5fa"
+    }
+  },
+  "contrast_notes": {
+    "light.text/surface": "16.1:1 (AAA)",
+    "light.text-muted/surface": "7.4:1 (AAA)",
+    "light.accent/surface": "5.2:1 (AA)",
+    "light.danger/surface": "4.8:1 (AA)",
+    "dark.text/surface": "13.2:1 (AAA)",
+    "dark.text-muted/surface": "5.1:1 (AA)",
+    "dark.accent/surface": "6.9:1 (AA)"
+  }
+}

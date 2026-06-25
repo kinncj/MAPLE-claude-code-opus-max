@@ -1,0 +1,17 @@
+# Keep the build context small and reproducible.
+.git
+.github
+.claude
+.cursor
+.opencode
+docs
+tests
+scripts
+**/node_modules
+**/dist
+**/target
+**/coverage
+**/playwright-report
+**/test-results
+*.log
+.DS_Store
