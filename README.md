@@ -3,9 +3,9 @@
 A sample BusinessRepo built end-to-end to show what [MAPLE](https://github.com/kinncj/maple) can do
 when driven by **Claude Code** on **Claude Opus 4.8**.
 
-The entire project was produced by Claude running **autonomously**. The only standing instruction
-was to **auto-approve the MAPLE/taffy pipeline gates** instead of pausing for human sign-off at each
-stage. From there, Claude leaned on the MAPLE steps to do all of it:
+The entire project was produced by Claude running **autonomously** — including this README file. The
+only standing instruction was to **auto-approve the MAPLE/taffy pipeline gates** instead of pausing
+for human sign-off at each stage. From there, Claude leaned on the MAPLE steps to do all of it:
 
 - **User story** in Gherkin, with acceptance scenarios
 - **Wireframes** in three formats and a design-token system
